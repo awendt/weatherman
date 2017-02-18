@@ -9,4 +9,4 @@
       key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
   - name: Install awscli
     apt: pkg=awscli state=latest
-    sudo: yes
+    become: yes

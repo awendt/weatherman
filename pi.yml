@@ -7,6 +7,28 @@
       user: pi
       state: present
       key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  - name: Download Python library
+    unarchive:
+      src: https://github.com/adafruit/Adafruit_Python_DHT/archive/master.zip
+      dest: /home/pi/
+      remote_src: yes
+      creates: /home/pi/Adafruit_Python_DHT-master
+  - name: Install build tools
+    apt:
+      update_cache: yes
+      pkg: build-essential,python-dev
+      state: latest
+    become: yes
   - name: Install awscli
     apt: pkg=awscli state=latest
     become: yes
+  - name: Install Python library
+    command: python setup.py install
+    args:
+      chdir: /home/pi/Adafruit_Python_DHT-master
+    become: yes
+  - name: Copy script
+    copy:
+      src: ./dht_metric.py
+      dest: /home/pi/dht_metric.py
+      mode: 0744

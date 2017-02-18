@@ -32,12 +32,13 @@ import Adafruit_DHT
 sensor_args = { '11': Adafruit_DHT.DHT11,
                 '22': Adafruit_DHT.DHT22,
                 '2302': Adafruit_DHT.AM2302 }
-if len(sys.argv) == 3 and sys.argv[1] in sensor_args:
+if len(sys.argv) == 4 and sys.argv[1] in sensor_args:
     sensor = sensor_args[sys.argv[1]]
     pin = sys.argv[2]
+    room = sys.argv[3]
 else:
-    print('usage: sudo ./Adafruit_DHT.py [11|22|2302] GPIOpin#')
-    print('example: sudo ./Adafruit_DHT.py 2302 4 - Read from an AM2302 connected to GPIO #4')
+    print('usage: sudo ./Adafruit_DHT.py [11|22|2302] GPIOpin# room')
+    print('example: sudo ./Adafruit_DHT.py 2302 4 living - Read from an AM2302 connected to GPIO #4')
     sys.exit(1)
 
 # Try to grab a sensor reading.  Use the read_retry method which will retry up
@@ -57,7 +58,7 @@ if humidity is not None and temperature is not None:
       'Dimensions': [
         {
           'Name': 'Room',
-          'Value': 'Wohnzimmer'
+          'Value': room
         },
       ],
       'Value': temperature,
@@ -68,7 +69,7 @@ if humidity is not None and temperature is not None:
       'Dimensions': [
         {
           'Name': 'Room',
-          'Value': 'Wohnzimmer'
+          'Value': room
         },
       ],
       'Value': humidity,

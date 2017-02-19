@@ -27,8 +27,22 @@
     args:
       chdir: /home/pi/Adafruit_Python_DHT-master
     become: yes
-  - name: Copy script
+  - name: Copy script to read from sensor
     copy:
       src: ./dht_metric.py
       dest: /home/pi/dht_metric.py
+      mode: 0744
+  - name: Create target directory
+    file: path=/home/pi/.aws/ state=directory mode=0755
+  - name: Configure awscli
+    template:
+      src: credentials.j2
+      dest: /home/pi/.aws/credentials
+      mode: 0600
+    tags:
+      - credentials
+  - name: Copy script to publish local weather
+    copy:
+      src: ./publish-weather.sh
+      dest: /home/pi/publish-weather.sh
       mode: 0744

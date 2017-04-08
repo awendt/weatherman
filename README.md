@@ -46,4 +46,4 @@ ansible-playbook -i raspberrypi, pi.yml --skip-tags=credentials
 - compiles the library to read temperature and humidity from the sensor
 - reads data from the sensor and outputs it as JSON
 - JSON is fed into the [AWS Command-line interface](https://aws.amazon.com/cli/) which sends data to AWS CloudWatch
-- adds a crontab entry to do all this every 5 minutes
+- adds a crontab entry to do all this every minute

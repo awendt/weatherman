@@ -49,6 +49,5 @@
   - name: Set up cronjob
     cron:
       name: "publish weather"
-      minute: "*/5"
       job: "/home/pi/publish-weather.sh {{room}}"
       user: pi

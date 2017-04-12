@@ -75,7 +75,10 @@ if humidity is not None and temperature is not None:
       'Value': humidity,
       'Unit': 'Percent'
     }
-    print json.dumps([temperature_metric, humidity_metric], indent=2, sort_keys=True)
+    if humidity < 100:
+      print json.dumps([temperature_metric, humidity_metric], indent=2, sort_keys=True)
+    else:
+      print json.dumps([temperature_metric], indent=2, sort_keys=True)
 else:
     print('Failed to get reading. Try again!')
 sys.exit(1)
